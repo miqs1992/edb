@@ -1,0 +1,218 @@
+:root {
+    --color-bg: #f4f5f7;
+    --color-surface: #ffffff;
+    --color-text: #1f2933;
+    --color-muted: #616e7c;
+    --color-border: #d9dee5;
+    --color-primary: #1e3a5f;
+    --color-primary-hover: #15293f;
+    --color-header-text: #ffffff;
+    --radius: 8px;
+
+    /* Fixed layout sizes used to compute the gallery height */
+    --header-height: 64px;
+    --footer-height: 52px;
+    --content-padding: 32px;
+    --panel-padding: 32px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.5;
+}
+
+/* Header and tabs */
+
+.site-header {
+    background: var(--color-primary);
+    color: var(--color-header-text);
+}
+
+.site-header__inner {
+    max-width: 960px;
+    height: var(--header-height);
+    margin: 0 auto;
+    padding: 0 16px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px 24px;
+}
+
+.site-title {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.tab {
+    background: transparent;
+    color: var(--color-header-text);
+    border: 1px solid transparent;
+    border-radius: var(--radius);
+    padding: 8px 14px;
+    font: inherit;
+    opacity: 0.75;
+    cursor: pointer;
+}
+
+.tab:hover {
+    opacity: 1;
+}
+
+.tab.active {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.14);
+    border-color: rgba(255, 255, 255, 0.35);
+}
+
+.tab:focus-visible,
+.draw-button:focus-visible,
+.site-footer a:focus-visible {
+    outline: 3px solid #8fb3e0;
+    outline-offset: 2px;
+}
+
+/* Content */
+
+.content {
+    flex: 1;
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: var(--content-padding) 16px;
+}
+
+/* Two columns: intro left, picture right */
+.panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: center;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: var(--panel-padding);
+    box-shadow: 0 1px 2px rgba(31, 41, 51, 0.06);
+}
+
+.panel[hidden] {
+    display: none;
+}
+
+.panel__intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 24px;
+}
+
+.panel__logo {
+    height: 140px;
+    width: auto;
+}
+
+.panel__title {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.draw-button {
+    background: var(--color-primary);
+    color: #ffffff;
+    border: none;
+    border-radius: var(--radius);
+    padding: 12px 32px;
+    font: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.draw-button:hover {
+    background: var(--color-primary-hover);
+}
+
+/* Drawn rank image: the gallery height is the viewport minus header, footer,
+   content padding, panel padding and panel border (2 x 1px) */
+
+.gallery {
+    min-width: 0;
+    height: max(200px, calc(100vh - var(--header-height) - var(--footer-height) - 2 * var(--content-padding) - 2 * var(--panel-padding) - 2px));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gallery img {
+    display: none;
+    height: 100%;
+    max-width: 100%;
+    width: auto;
+    object-fit: contain;
+}
+
+.gallery img.visible {
+    display: block;
+}
+
+/* Footer */
+
+.site-footer {
+    height: var(--footer-height);
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25em;
+    color: var(--color-muted);
+    font-size: 0.875rem;
+    border-top: 1px solid var(--color-border);
+    background: var(--color-surface);
+}
+
+.site-footer a {
+    color: var(--color-primary);
+}
+
+/* Narrow screens: header may wrap, columns stack and the gallery gets a fixed height */
+@media (max-width: 720px) {
+    .site-header__inner {
+        height: auto;
+        padding: 16px;
+    }
+
+    .panel {
+        grid-template-columns: 1fr;
+        padding: 24px 16px;
+    }
+
+    .gallery {
+        height: 260px;
+    }
+}
+
+@media (max-width: 480px) {
+    .panel__title {
+        font-size: 1.25rem;
+    }
+}

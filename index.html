@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Ćwiczenia praktyczne EDB</title>
+        <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+        <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+        <link rel="stylesheet" href="./styles.css">
+        <script src="./main.js"></script>
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="site-header__inner">
+                <h1 class="site-title">Ćwiczenia praktyczne EDB</h1>
+                <nav class="tabs" role="tablist" aria-label="Rodzaj sił zbrojnych">
+                    <button class="tab active" id="home-tab" role="tab" aria-selected="true" aria-controls="home" type="button">Wojska lądowe</button>
+                    <button class="tab" id="profile-tab" role="tab" aria-selected="false" aria-controls="profile" tabindex="-1" type="button">Marynarka wojenna</button>
+                </nav>
+            </div>
+        </header>
+
+        <main class="content">
+            <section class="panel" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="panel__intro">
+                    <img class="panel__logo" src="assets/images/logos/wojska-ladowe.svg" alt="Orzeł Wojsk Lądowych">
+                    <h2 class="panel__title">Wojska lądowe i siły powietrzne</h2>
+                    <button id="army-pick" class="draw-button" type="button">Losuj</button>
+                </div>
+                <div id="pictures-div" class="gallery"></div>
+            </section>
+
+            <section class="panel" id="profile" role="tabpanel" aria-labelledby="profile-tab" hidden>
+                <div class="panel__intro">
+                    <img class="panel__logo" src="assets/images/logos/marynarka-wojenna.webp" alt="Orzeł Marynarki Wojennej">
+                    <h2 class="panel__title">Marynarka wojenna</h2>
+                    <button id="navy-pick" class="draw-button" type="button">Losuj</button>
+                </div>
+                <div id="pictures-div2" class="gallery"></div>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            Made by <a href="https://github.com/miqs1992" target="_blank" rel="noopener">Wojciech Mikusek</a>
+        </footer>
+    </body>
+</html>
