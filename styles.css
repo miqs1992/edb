@@ -52,8 +52,34 @@ body {
 
 .site-title {
     margin: 0;
-    font-size: 1.25rem;
-    font-weight: 600;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    font-size: 1.125rem;
+    font-weight: 500;
+}
+
+.site-title__part {
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Divider between title parts: a thin, faded vertical rule */
+.site-title__part + .site-title__part::before {
+    content: "";
+    width: 1px;
+    height: 1.8em;
+    margin: 0 16px;
+    background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.55), transparent);
+}
+
+.site-title__brand {
+    font-weight: 700;
+    letter-spacing: 0.06em;
+}
+
+.site-title__topic {
+    opacity: 0.75;
 }
 
 /* Underline tabs: text only, the active tab gets an indicator on the header's bottom edge */
@@ -314,20 +340,43 @@ body {
     color: var(--color-primary);
 }
 
+/* Mid widths: the full title and the tabs no longer fit the fixed-height header row */
+@media (min-width: 721px) and (max-width: 860px) {
+    .site-title__topic {
+        display: none;
+    }
+}
+
 /* Narrow screens: header may wrap, columns stack and the gallery gets a fixed height */
 @media (max-width: 720px) {
+    /* Title on its own single line, tabs below as a full-width two-column bar */
     .site-header__inner {
         height: auto;
-        padding: 16px 16px 0;
-        gap: 4px;
+        padding: 14px 16px 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
+    }
+
+    .site-title {
+        flex-wrap: nowrap;
+        white-space: nowrap;
+    }
+
+    .site-title__context {
+        display: none;
     }
 
     .tabs {
-        margin-left: -12px;
+        gap: 0;
     }
 
     .tab {
-        padding: 12px;
+        flex: 1 1 0;
+        justify-content: center;
+        padding: 12px 4px;
+        white-space: nowrap;
+        font-size: clamp(0.875rem, 4vw, 1rem);
     }
 
     .panel {
