@@ -1,7 +1,7 @@
 window.addEventListener('DOMContentLoaded', () => {
     initTabs();
-    initArmy();
-    initNavy();
+    initPanel(document.getElementById('home'), 'army', armyRanks);
+    initPanel(document.getElementById('profile'), 'navy', navyRanks);
 });
 
 function initTabs() {
@@ -19,84 +19,34 @@ function initTabs() {
     });
 }
 
-const armyImages = [
-    'Army-POL-OR-01',
-    'Army-POL-OR-02',
-    'Army-POL-OR-03',
-    'Army-POL-OR-04a',
-    'Army-POL-OR-04b',
-    'Army-POL-OR-05',
-    'Army-POL-OR-06',
-    'Army-POL-OR-07',
-    'Army-POL-OR-08',
-    'Army-POL-OR-09a',
-    'Army-POL-OR-09b',
-    'Army-POL-OF-01b',
-    'Army-POL-OF-01a',
-    'Army-POL-OF-02',
-    'Army-POL-OF-03',
-    'Army-POL-OF-04',
-    'Army-POL-OF-05',
-    'Army-POL-OF-06',
-    'Army-POL-OF-07',
-    'Army-POL-OF-08',
-    'Army-POL-OF-09',
-    'Army-POL-OF-10',
-]
+// Adds one <img> per rank to the panel's gallery, wires the draw button to show a random one
+// and the name toggle to show or hide the drawn rank's name under the picture
+function initPanel(panel, folder, ranks) {
+    const gallery = panel.querySelector('.gallery__images');
+    const caption = panel.querySelector('.rank-name');
+    const toggle = panel.querySelector('.name-toggle');
 
-const navyImages = [
-    'POL_PMW_pagon1_marynarz',
-    'POL_PMW_pagon1_starszy_marynarz',
-    'POL_PMW_pagon1_mat',
-    'POL_PMW_pagon1_starszy_mat',
-    'POL_PMW_pagon1_bosmanmat',
-    'POL_PMW_pagon1_bosman',
-    'POL_PMW_pagon1_starszy_bosman',
-    'POL_PMW_pagon1_młodszy_chorąży_marynarki',
-    'POL_PMW_pagon1_chorąży_marynarki',
-    'POL_PMW_pagon1_starszy_chorąży_marynarki',
-    'POL_PMW_pagon1_starszy_chorąży_sztabowy_marynarki',
-    'POL_PMW_pagon1_podporucznik_marynarki',
-    'POL_PMW_pagon1_porucznik_marynarki',
-    'POL_PMW_pagon1_kapitan_marynarki',
-    'POL_PMW_pagon1_komandor_podporucznik',
-    'POL_PMW_pagon1_komandor_porucznik',
-    'POL_PMW_pagon1_komandor',
-    'POL_PMW_pagon1_kontradmirał',
-    'POL_PMW_pagon1_wiceadmirał',
-    'POL_PMW_pagon1_admirał_floty',
-    'POL_PMW_pagon1_admirał',
-]
-
-function appendImages(div, folder, images) {
-    return images.map(name => {
-        const el = document.createElement("img");
-        el.src = encodeURI(`assets/images/${folder}/${name}.svg`);
-        el.classList.add("js-army");
-        div.appendChild(el);
+    const images = ranks.map(rank => {
+        const el = document.createElement('img');
+        el.src = `assets/images/${folder}/${rank.file}.svg`;
+        el.alt = rank.name;
+        gallery.appendChild(el);
         return el;
-    })
-}
+    });
 
-function assignListener(images, button) {
-    button.addEventListener('click', (event) => {
-		event.preventDefault();
-		images.map(i => i.classList.remove("visible"));
-		const image = images[Math.floor(Math.random() * images.length)];
-		image.classList.add("visible");
-   })
-}
+    panel.querySelector('.draw-button').addEventListener('click', () => {
+        images.forEach(i => i.classList.remove('visible'));
+        caption.classList.remove('animate');
+        // Force a reflow so the entrance animation restarts even when the same rank is drawn again
+        void gallery.offsetWidth;
 
-function initArmy() {
-    const div = document.getElementById("pictures-div");
-    const images = appendImages(div, "army", armyImages);
-    const button = document.getElementById("army-pick");
-    assignListener(images, button);
-}
+        const index = Math.floor(Math.random() * images.length);
+        images[index].classList.add('visible');
+        caption.textContent = ranks[index].name;
+        caption.classList.add('animate');
+    });
 
-function initNavy() {
-    const div = document.getElementById("pictures-div2");
-    const images = appendImages(div, "navy", navyImages);
-    const button = document.getElementById("navy-pick");
-    assignListener(images, button);
+    toggle.addEventListener('change', () => {
+        caption.classList.toggle('visible', toggle.checked);
+    });
 }

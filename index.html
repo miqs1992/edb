@@ -7,6 +7,7 @@
         <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
         <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
         <link rel="stylesheet" href="./styles.css">
+        <script src="./ranks.js"></script>
         <script src="./main.js"></script>
     </head>
     <body>
@@ -25,18 +26,34 @@
                 <div class="panel__intro">
                     <img class="panel__logo" src="assets/images/logos/wojska-ladowe.svg" alt="Orzeł Wojsk Lądowych">
                     <h2 class="panel__title">Wojska lądowe i siły powietrzne</h2>
-                    <button id="army-pick" class="draw-button" type="button">Losuj</button>
+                    <button class="draw-button" type="button">Losuj</button>
+                    <label class="switch">
+                        <input class="switch__input name-toggle" type="checkbox">
+                        <span class="switch__track" aria-hidden="true"></span>
+                        Pokaż nazwę stopnia
+                    </label>
                 </div>
-                <div id="pictures-div" class="gallery"></div>
+                <div class="gallery">
+                    <div class="gallery__images"></div>
+                    <p class="rank-name" aria-live="polite"></p>
+                </div>
             </section>
 
             <section class="panel" id="profile" role="tabpanel" aria-labelledby="profile-tab" hidden>
                 <div class="panel__intro">
                     <img class="panel__logo" src="assets/images/logos/marynarka-wojenna.webp" alt="Orzeł Marynarki Wojennej">
                     <h2 class="panel__title">Marynarka wojenna</h2>
-                    <button id="navy-pick" class="draw-button" type="button">Losuj</button>
+                    <button class="draw-button" type="button">Losuj</button>
+                    <label class="switch">
+                        <input class="switch__input name-toggle" type="checkbox">
+                        <span class="switch__track" aria-hidden="true"></span>
+                        Pokaż nazwę stopnia
+                    </label>
                 </div>
-                <div id="pictures-div2" class="gallery"></div>
+                <div class="gallery">
+                    <div class="gallery__images"></div>
+                    <p class="rank-name" aria-live="polite"></p>
+                </div>
             </section>
         </main>
 
