@@ -2,6 +2,11 @@ window.addEventListener('DOMContentLoaded', () => {
     initTabs();
     initPanel(document.getElementById('home'), 'army', armyRanks);
     initPanel(document.getElementById('profile'), 'navy', navyRanks);
+
+    // Service workers need http(s), so this is skipped when the page is opened from disk
+    if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+        navigator.serviceWorker.register('sw.js');
+    }
 });
 
 function initTabs() {
